@@ -1,17 +1,13 @@
-{% set name = "pyani" %}
-{% set version = "0.2.0" %}
-
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: pyani
+  version: "0.2.3"
 
 source:
-  fn: {{ name|lower }}_{{ version }}.tar.gz
-  url: https://github.com/widdowquinn/{{ name|lower }}/archive/v{{ version }}.tar.gz
-  md5: 40168592baabe261e0fe8eac1e3c7018
+  fn: pyani-0.2.3.tar.gz
+  url: https://pypi.python.org/packages/02/90/2a97a12577c270458e66580e1cc9b9d347193cdce07848678242013d32e3/pyani-0.2.3.tar.gz
+  md5: 98b16a167999061e649cef483d1ba6a9
 
 build:
-  skip: True  # [py27]
   number: 0
 
 requirements:
@@ -21,39 +17,31 @@ requirements:
     - biopython
     - matplotlib
     - pandas
-    - seaborn
-    - rpy2
     - scipy
-    - numpy
-    - mummer
-    - blast
-    - blast-legacy  # [not osx]
-    - r 
+    - seaborn
 
   run:
     - python
     - biopython
     - matplotlib
     - pandas
-    - seaborn
-    - rpy2
     - scipy
-    - numpy
-    - mummer
-    - blast
-    - blast-legacy  # [not osx]
-    - r
+    - seaborn
 
 test:
   imports:
     - pyani
-  commands: 
-    - average_nucleotide_identity.py -h
-    - genbank_get_genomes_by_taxon.py -h
+
+  commands:
+    - average_nucleotide_identity.py --help
+    - genbank_get_genomes_by_taxon.py --help
+    - cd tests && nosetests
+
+  requires:
+    - nose
 
 about:
   home: http://widdowquinn.github.io/pyani/
   license: MIT License
   summary: 'pyani provides a package and script for calculation of genome-scale average nucleotide identity.'
   license_family: MIT
-
